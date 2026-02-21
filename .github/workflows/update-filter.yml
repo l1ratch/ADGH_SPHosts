@@ -1,0 +1,65 @@
+name: Update DNS filter
+
+on:
+  schedule:
+    - cron: '0 3 * * 0'  # каждое воскресенье в 03:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-filter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download hosts file
+        run: |
+          curl -L https://raw.githubusercontent.com/ImMALWARE/dns.malw.link/master/hosts -o hosts.txt
+
+      - name: Extract domains
+        run: |
+          awk '
+          /# Блокировка/ {flag=1; next}
+          /# dns.malw.link: end hosts file/ {flag=0}
+          flag && $1 == "0.0.0.0" {print $2}
+          ' hosts.txt > domains.txt
+
+      - name: Convert to AdGuard format
+        run: |
+          sed 's/^/||/; s/$/\^/' domains.txt > converted.txt
+
+      - name: Merge with filter.html
+        run: |
+          FILTER="block hosts file/filter.html"
+
+          # сохранить header
+          grep '^!' "$FILTER" > header.txt
+
+          # сохранить существующие домены
+          grep -v '^!' "$FILTER" > existing.txt || true
+
+          # объединить и удалить дубликаты
+          cat existing.txt converted.txt \
+            | sort -u \
+            > merged.txt
+
+          # собрать финальный файл
+          cat header.txt merged.txt > "$FILTER"
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add "block hosts file/filter.html"
+
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Auto update DNS filter"
+            git push
+          fi
