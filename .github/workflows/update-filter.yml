@@ -1,69 +1,63 @@
-name: Update DNS filter (overwrite + logs)
+name: Update DNS filter
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 3 * * 0'
-  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  update-filter:
+  update:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare paths
+      - name: Create dirs
         run: |
-          FILTER_DIR="block hosts file"
-          LOG_DIR="$FILTER_DIR/logs"
-
-          mkdir -p "$LOG_DIR"
-
-          echo "FILTER=$FILTER_DIR/filter.html" >> $GITHUB_ENV
-          echo "LOG_DIR=$LOG_DIR" >> $GITHUB_ENV
+          mkdir -p "block hosts file/logs"
 
       - name: Backup old domains
         run: |
-          grep -v '^!' "$FILTER" | sort -u > old_domains.txt || true
+          if [ -f "block hosts file/filter.html" ]; then
+            grep -v '^!' "block hosts file/filter.html" | sort -u > old.txt
+          else
+            touch old.txt
+          fi
 
-      - name: Download hosts file
+      - name: Download hosts
         run: |
           curl -L https://raw.githubusercontent.com/ImMALWARE/dns.malw.link/master/hosts -o hosts.txt
 
-      - name: Extract and convert domains
+      - name: Extract domains
         run: |
-          awk '
-          /# Блокировка/ {flag=1; next}
-          /# dns.malw.link: end hosts file/ {flag=0}
-          flag && $1 == "0.0.0.0" {print "||"$2"^"}
-          ' hosts.txt | sort -u > new_domains.txt
+          awk '/# Блокировка/{flag=1;next}/# dns.malw.link: end hosts file/{flag=0}flag && $1=="0.0.0.0"{print "||"$2"^"}' hosts.txt | sort -u > new.txt
 
-      - name: Generate diff log
+      - name: Write log
         run: |
           DATE=$(date -u +"%Y-%m-%d_%H-%M-%S")
-          LOG_FILE="$LOG_DIR/$DATE.log"
+          LOG="block hosts file/logs/$DATE.log"
 
-          touch old_domains.txt new_domains.txt
+          echo "Update: $DATE" > "$LOG"
+          echo "" >> "$LOG"
 
-          echo "Update date: $DATE" > "$LOG_FILE"
-          echo "" >> "$LOG_FILE"
+          echo "Added:" >> "$LOG"
+          comm -13 old.txt new.txt | sed 's/^/+ /' >> "$LOG"
 
-          echo "Added domains:" >> "$LOG_FILE"
-          comm -13 old_domains.txt new_domains.txt | sed 's/^/+ /' >> "$LOG_FILE"
+          echo "" >> "$LOG"
+          echo "Removed:" >> "$LOG"
+          comm -23 old.txt new.txt | sed 's/^/- /' >> "$LOG"
 
-          echo "" >> "$LOG_FILE"
-          echo "Removed domains:" >> "$LOG_FILE"
-          comm -23 old_domains.txt new_domains.txt | sed 's/^/- /' >> "$LOG_FILE"
-
-          echo "LOG_FILE=$LOG_FILE" >> $GITHUB_ENV
-
-      - name: Preserve and update header
+      - name: Preserve header
         run: |
-          grep '^!' "$FILTER" > header.txt || true
+          if [ -f "block hosts file/filter.html" ]; then
+            grep '^!' "block hosts file/filter.html" > header.txt
+          else
+            echo "! Title: DNS Filter" > header.txt
+          fi
 
           DATE_ISO=$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")
 
@@ -73,24 +67,20 @@ jobs:
             echo "! Last modified: $DATE_ISO" >> header.txt
           fi
 
-      - name: Rebuild filter file
+      - name: Rebuild filter
         run: |
-          cat header.txt new_domains.txt > "$FILTER"
+          cat header.txt new.txt > "block hosts file/filter.html"
 
-      - name: Commit changes and logs
+      - name: Commit
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          git add "$FILTER"
-          git add "$LOG_DIR"
+          git add .
 
           if git diff --cached --quiet; then
             echo "No changes"
           else
-            git commit -m "Auto update DNS filter
-
-Added: $(comm -13 old_domains.txt new_domains.txt | wc -l)
-Removed: $(comm -23 old_domains.txt new_domains.txt | wc -l)"
+            git commit -m "Auto update DNS filter"
             git push
           fi
