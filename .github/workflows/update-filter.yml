@@ -1,8 +1,8 @@
-name: Update DNS filter
+name: Update DNS filter (overwrite + logs)
 
 on:
   schedule:
-    - cron: '0 3 * * 0'  # каждое воскресенье в 03:00 UTC
+    - cron: '0 3 * * 0'
   workflow_dispatch:
 
 permissions:
@@ -16,50 +16,81 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Prepare paths
+        run: |
+          FILTER_DIR="block hosts file"
+          LOG_DIR="$FILTER_DIR/logs"
+
+          mkdir -p "$LOG_DIR"
+
+          echo "FILTER=$FILTER_DIR/filter.html" >> $GITHUB_ENV
+          echo "LOG_DIR=$LOG_DIR" >> $GITHUB_ENV
+
+      - name: Backup old domains
+        run: |
+          grep -v '^!' "$FILTER" | sort -u > old_domains.txt || true
+
       - name: Download hosts file
         run: |
           curl -L https://raw.githubusercontent.com/ImMALWARE/dns.malw.link/master/hosts -o hosts.txt
 
-      - name: Extract domains
+      - name: Extract and convert domains
         run: |
           awk '
           /# Блокировка/ {flag=1; next}
           /# dns.malw.link: end hosts file/ {flag=0}
-          flag && $1 == "0.0.0.0" {print $2}
-          ' hosts.txt > domains.txt
+          flag && $1 == "0.0.0.0" {print "||"$2"^"}
+          ' hosts.txt | sort -u > new_domains.txt
 
-      - name: Convert to AdGuard format
+      - name: Generate diff log
         run: |
-          sed 's/^/||/; s/$/\^/' domains.txt > converted.txt
+          DATE=$(date -u +"%Y-%m-%d_%H-%M-%S")
+          LOG_FILE="$LOG_DIR/$DATE.log"
 
-      - name: Merge with filter.html
+          touch old_domains.txt new_domains.txt
+
+          echo "Update date: $DATE" > "$LOG_FILE"
+          echo "" >> "$LOG_FILE"
+
+          echo "Added domains:" >> "$LOG_FILE"
+          comm -13 old_domains.txt new_domains.txt | sed 's/^/+ /' >> "$LOG_FILE"
+
+          echo "" >> "$LOG_FILE"
+          echo "Removed domains:" >> "$LOG_FILE"
+          comm -23 old_domains.txt new_domains.txt | sed 's/^/- /' >> "$LOG_FILE"
+
+          echo "LOG_FILE=$LOG_FILE" >> $GITHUB_ENV
+
+      - name: Preserve and update header
         run: |
-          FILTER="block hosts file/filter.html"
+          grep '^!' "$FILTER" > header.txt || true
 
-          # сохранить header
-          grep '^!' "$FILTER" > header.txt
+          DATE_ISO=$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")
 
-          # сохранить существующие домены
-          grep -v '^!' "$FILTER" > existing.txt || true
+          if grep -q "Last modified:" header.txt; then
+            sed -i "s|Last modified:.*|Last modified: $DATE_ISO|" header.txt
+          else
+            echo "! Last modified: $DATE_ISO" >> header.txt
+          fi
 
-          # объединить и удалить дубликаты
-          cat existing.txt converted.txt \
-            | sort -u \
-            > merged.txt
+      - name: Rebuild filter file
+        run: |
+          cat header.txt new_domains.txt > "$FILTER"
 
-          # собрать финальный файл
-          cat header.txt merged.txt > "$FILTER"
-
-      - name: Commit changes
+      - name: Commit changes and logs
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          git add "block hosts file/filter.html"
+          git add "$FILTER"
+          git add "$LOG_DIR"
 
           if git diff --cached --quiet; then
             echo "No changes"
           else
-            git commit -m "Auto update DNS filter"
+            git commit -m "Auto update DNS filter
+
+Added: $(comm -13 old_domains.txt new_domains.txt | wc -l)
+Removed: $(comm -23 old_domains.txt new_domains.txt | wc -l)"
             git push
           fi
