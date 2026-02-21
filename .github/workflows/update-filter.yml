@@ -13,70 +13,82 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Create dirs
+      - name: Prepare directories
         run: |
-          mkdir -p "block hosts file/logs"
+          mkdir -p block_hosts/logs
+          mkdir -p block_hosts/recent
 
       - name: Backup old domains
         run: |
-          if [ -f "block hosts file/filter.html" ]; then
-            grep -v '^!' "block hosts file/filter.html" | sort -u > old.txt
+          if [ -f block_hosts/filter.html ]; then
+            grep -v '^!' block_hosts/filter.html | sort -u > block_hosts/recent/old.txt
           else
-            touch old.txt
+            touch block_hosts/recent/old.txt
           fi
 
       - name: Download hosts
         run: |
-          curl -L https://raw.githubusercontent.com/ImMALWARE/dns.malw.link/master/hosts -o hosts.txt
+          curl -L https://raw.githubusercontent.com/ImMALWARE/dns.malw.link/master/hosts \
+          -o block_hosts/recent/hosts.txt
 
       - name: Extract domains
         run: |
-          awk '/# Блокировка/{flag=1;next}/# dns.malw.link: end hosts file/{flag=0}flag && $1=="0.0.0.0"{print "||"$2"^"}' hosts.txt | sort -u > new.txt
+          awk '/# Блокировка/{flag=1;next}/# dns.malw.link: end hosts file/{flag=0}flag && $1=="0.0.0.0"{print "||"$2"^"}' \
+          block_hosts/recent/hosts.txt | sort -u \
+          > block_hosts/recent/new.txt
 
       - name: Write log
         run: |
           DATE=$(date -u +"%Y-%m-%d_%H-%M-%S")
-          LOG="block hosts file/logs/$DATE.log"
+          LOG=block_hosts/logs/$DATE.log
+
+          OLD=block_hosts/recent/old.txt
+          NEW=block_hosts/recent/new.txt
 
           echo "Update: $DATE" > "$LOG"
           echo "" >> "$LOG"
 
           echo "Added:" >> "$LOG"
-          comm -13 old.txt new.txt | sed 's/^/+ /' >> "$LOG"
+          comm -13 "$OLD" "$NEW" | sed 's/^/+ /' >> "$LOG"
 
           echo "" >> "$LOG"
           echo "Removed:" >> "$LOG"
-          comm -23 old.txt new.txt | sed 's/^/- /' >> "$LOG"
+          comm -23 "$OLD" "$NEW" | sed 's/^/- /' >> "$LOG"
 
       - name: Preserve header
         run: |
-          if [ -f "block hosts file/filter.html" ]; then
-            grep '^!' "block hosts file/filter.html" > header.txt
+          HEADER=block_hosts/recent/header.txt
+
+          if [ -f block_hosts/filter.html ]; then
+            grep '^!' block_hosts/filter.html > "$HEADER"
           else
-            echo "! Title: DNS Filter" > header.txt
+            echo "! Title: DNS Filter" > "$HEADER"
           fi
 
           DATE_ISO=$(date -u +"%Y-%m-%dT%H:%M:%S.000Z")
 
-          if grep -q "Last modified:" header.txt; then
-            sed -i "s|Last modified:.*|Last modified: $DATE_ISO|" header.txt
+          if grep -q "Last modified:" "$HEADER"; then
+            sed -i "s|Last modified:.*|Last modified: $DATE_ISO|" "$HEADER"
           else
-            echo "! Last modified: $DATE_ISO" >> header.txt
+            echo "! Last modified: $DATE_ISO" >> "$HEADER"
           fi
 
       - name: Rebuild filter
         run: |
-          cat header.txt new.txt > "block hosts file/filter.html"
+          cat block_hosts/recent/header.txt block_hosts/recent/new.txt > block_hosts/filter.html
 
       - name: Commit
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
 
-          git add .
+          git add block_hosts/filter.html
+          git add block_hosts/logs
+          git add block_hosts/recent
 
           if git diff --cached --quiet; then
             echo "No changes"
