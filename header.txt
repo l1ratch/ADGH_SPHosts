@@ -1,9 +1,0 @@
-!
-! Title: My Custom DNS Filter
-! Description: Custom blocklist for ads and trackers
-! Version: 1.0.0
-! Homepage: https://github.com/l1ratch
-! Last modified: 2026-02-21T14:48:25.000Z
-!
-! Compiled by @adguard/hostlist-compiler v1.0.35
-!
