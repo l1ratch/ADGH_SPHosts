@@ -1,0 +1,41 @@
+name: Update rewrites
+
+on:
+  schedule:
+    - cron: "0 4 * * *"  # каждый день
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: |
+          pip install requests pyyaml
+
+      - name: Run script
+        run: |
+          python scripts/generate_rewrites.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          git add rewrites/
+
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "auto: update rewrites"
+            git push
+          fi
