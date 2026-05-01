@@ -21,7 +21,7 @@
   },
   {
     "domain": "game.clashroyaleapp.com",
-    "answer": "45.95.233.23",
+    "answer": "62.133.62.97",
     "enabled": true
   },
   {
@@ -41,7 +41,7 @@
   },
   {
     "domain": "game.mocogame.com",
-    "answer": "45.95.233.23",
+    "answer": "62.133.62.97",
     "enabled": true
   },
   {
@@ -72,81 +72,6 @@
   {
     "domain": "help.instagram.com",
     "answer": "157.240.245.174",
-    "enabled": true
-  },
-  {
-    "domain": "gemini.google.com",
-    "answer": "103.27.157.38",
-    "enabled": true
-  },
-  {
-    "domain": "aistudio.google.com",
-    "answer": "103.27.157.38",
-    "enabled": true
-  },
-  {
-    "domain": "generativelanguage.googleapis.com",
-    "answer": "103.27.157.38",
-    "enabled": true
-  },
-  {
-    "domain": "aitestkitchen.withgoogle.com",
-    "answer": "103.27.157.38",
-    "enabled": true
-  },
-  {
-    "domain": "aisandbox-pa.googleapis.com",
-    "answer": "103.27.157.38",
-    "enabled": true
-  },
-  {
-    "domain": "webchannel-alkalimakersuite-pa.clients6.google.com",
-    "answer": "103.27.157.38",
-    "enabled": true
-  },
-  {
-    "domain": "alkalimakersuite-pa.clients6.google.com",
-    "answer": "103.27.157.38",
-    "enabled": true
-  },
-  {
-    "domain": "assistant-s3-pa.googleapis.com",
-    "answer": "103.27.157.38",
-    "enabled": true
-  },
-  {
-    "domain": "proactivebackend-pa.googleapis.com",
-    "answer": "103.27.157.38",
-    "enabled": true
-  },
-  {
-    "domain": "robinfrontend-pa.googleapis.com",
-    "answer": "95.182.120.241",
-    "enabled": true
-  },
-  {
-    "domain": "o.pki.goog",
-    "answer": "103.27.157.38",
-    "enabled": true
-  },
-  {
-    "domain": "labs.google",
-    "answer": "103.27.157.38",
-    "enabled": true
-  },
-  {
-    "domain": "notebooklm.google.com",
-    "answer": "103.27.157.38",
-    "enabled": true
-  },
-  {
-    "domain": "jules.google.com",
-    "answer": "103.27.157.38",
-    "enabled": true
-  },
-  {
-    "domain": "stitch.withgoogle.com",
-    "answer": "103.27.157.38",
     "enabled": true
   },
   {
@@ -236,7 +161,7 @@
   },
   {
     "domain": "sydney.bing.com",
-    "answer": "77.239.114.0",
+    "answer": "62.133.62.97",
     "enabled": true
   },
   {
@@ -456,17 +381,17 @@
   },
   {
     "domain": "geolocation.onetrust.com",
-    "answer": "103.27.157.38",
+    "answer": "77.239.114.0",
     "enabled": true
   },
   {
     "domain": "api.squareup.com",
-    "answer": "185.246.223.127",
+    "answer": "77.239.114.0",
     "enabled": true
   },
   {
     "domain": "api-global.squareup.com",
-    "answer": "103.27.157.38",
+    "answer": "77.239.114.0",
     "enabled": true
   },
   {
@@ -651,22 +576,97 @@
   },
   {
     "domain": "api.fitbit.com",
-    "answer": "77.239.114.0",
+    "answer": "62.133.62.97",
     "enabled": true
   },
   {
     "domain": "fitbit-pa.googleapis.com",
-    "answer": "77.239.114.0",
+    "answer": "62.133.62.97",
     "enabled": true
   },
   {
     "domain": "fitbitvestibuleshim-pa.googleapis.com",
-    "answer": "77.239.114.0",
+    "answer": "62.133.62.97",
     "enabled": true
   },
   {
     "domain": "fitbit.google.com",
-    "answer": "77.239.114.0",
+    "answer": "62.133.62.97",
+    "enabled": true
+  },
+  {
+    "domain": "gemini.google.com",
+    "answer": "62.133.62.97",
+    "enabled": true
+  },
+  {
+    "domain": "aistudio.google.com",
+    "answer": "62.133.62.97",
+    "enabled": true
+  },
+  {
+    "domain": "generativelanguage.googleapis.com",
+    "answer": "62.133.62.97",
+    "enabled": true
+  },
+  {
+    "domain": "aitestkitchen.withgoogle.com",
+    "answer": "62.133.62.97",
+    "enabled": true
+  },
+  {
+    "domain": "aisandbox-pa.googleapis.com",
+    "answer": "62.133.62.97",
+    "enabled": true
+  },
+  {
+    "domain": "webchannel-alkalimakersuite-pa.clients6.google.com",
+    "answer": "62.133.62.97",
+    "enabled": true
+  },
+  {
+    "domain": "alkalimakersuite-pa.clients6.google.com",
+    "answer": "62.133.62.97",
+    "enabled": true
+  },
+  {
+    "domain": "assistant-s3-pa.googleapis.com",
+    "answer": "62.133.62.97",
+    "enabled": true
+  },
+  {
+    "domain": "proactivebackend-pa.googleapis.com",
+    "answer": "62.133.62.97",
+    "enabled": true
+  },
+  {
+    "domain": "robinfrontend-pa.googleapis.com",
+    "answer": "62.133.62.97",
+    "enabled": true
+  },
+  {
+    "domain": "o.pki.goog",
+    "answer": "62.133.62.97",
+    "enabled": true
+  },
+  {
+    "domain": "labs.google",
+    "answer": "62.133.62.97",
+    "enabled": true
+  },
+  {
+    "domain": "notebooklm.google.com",
+    "answer": "62.133.62.97",
+    "enabled": true
+  },
+  {
+    "domain": "jules.google.com",
+    "answer": "62.133.62.97",
+    "enabled": true
+  },
+  {
+    "domain": "stitch.withgoogle.com",
+    "answer": "62.133.62.97",
     "enabled": true
   },
   {
@@ -881,12 +881,12 @@
   },
   {
     "domain": "accounts.autodesk.com",
-    "answer": "185.246.223.127",
+    "answer": "77.239.114.0",
     "enabled": true
   },
   {
     "domain": "www.autodesk.com",
-    "answer": "185.246.223.127",
+    "answer": "77.239.114.0",
     "enabled": true
   },
   {
@@ -910,7 +910,7 @@
     "enabled": true
   },
   {
-    "domain": "truthsocial.com",
+    "domain": "static-assets-1.truthsocial.com",
     "answer": "103.27.157.38",
     "enabled": true
   },
