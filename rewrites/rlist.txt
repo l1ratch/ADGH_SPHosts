@@ -93,11 +93,14 @@ filtering:
   - domain: ios.chat.openai.com
     answer: 77.239.114.0
     enabled: true
-  - domain: copilot.microsoft.com
+  - domain: cdn.platform.openai.com
     answer: 77.239.114.0
     enabled: true
-  - domain: sydney.bing.com
-    answer: 62.133.62.97
+  - domain: developers.openai.com
+    answer: 77.239.114.0
+    enabled: true
+  - domain: copilot.microsoft.com
+    answer: 77.239.114.0
     enabled: true
   - domain: edgeservices.bing.com
     answer: 77.239.114.0
@@ -411,6 +414,12 @@ filtering:
   - domain: api.anthropic.com
     answer: 77.239.114.0
     enabled: true
+  - domain: platform.claude.com
+    answer: 77.239.114.0
+    enabled: true
+  - domain: a.claude.ai
+    answer: 77.239.114.0
+    enabled: true
   - domain: trae-api-sg.mchost.guru
     answer: 77.239.114.0
     enabled: true
@@ -508,7 +517,7 @@ filtering:
     answer: 77.239.114.0
     enabled: true
   - domain: web.archive.org
-    answer: 77.239.114.0
+    answer: 103.27.157.38
     enabled: true
   - domain: developer.nvidia.com
     answer: 77.239.114.0
@@ -545,6 +554,9 @@ filtering:
     enabled: true
   - domain: swap-api.pump.fun
     answer: 77.239.114.0
+    enabled: true
+  - domain: truthsocial.com
+    answer: 103.27.157.38
     enabled: true
   - domain: static-assets-1.truthsocial.com
     answer: 103.27.157.38
