@@ -55,7 +55,7 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: auth0.openai.com
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: platform.openai.com
     answer: 45.155.204.190
@@ -85,16 +85,16 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: videos.openai.com
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: ios.chat.openai.com
     answer: 45.155.204.190
     enabled: true
   - domain: cdn.platform.openai.com
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: developers.openai.com
-    answer: 45.155.204.190
+    answer: 103.27.157.38
     enabled: true
   - domain: sdmntprukwest.oaiusercontent.com
     answer: 45.155.204.190
@@ -111,8 +111,11 @@ filtering:
   - domain: copilot.microsoft.com
     answer: 45.155.204.190
     enabled: true
+  - domain: sydney.bing.com
+    answer: 37.230.192.51
+    enabled: true
   - domain: edgeservices.bing.com
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: rewards.bing.com
     answer: 45.155.204.190
@@ -127,7 +130,7 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: api.spotify.com
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: login5.spotify.com
     answer: 45.155.204.190
@@ -154,7 +157,7 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: open.spotify.com
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: accounts.scdn.co
     answer: 45.155.204.190
@@ -169,10 +172,10 @@ filtering:
     answer: 103.27.157.38
     enabled: true
   - domain: api.individual.githubcopilot.com
-    answer: 103.27.157.38
+    answer: 45.155.204.190
     enabled: true
   - domain: proxy.individual.githubcopilot.com
-    answer: 103.27.157.38
+    answer: 45.155.204.190
     enabled: true
   - domain: datalore.jetbrains.com
     answer: 45.155.204.190
@@ -184,10 +187,10 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: api.jetbrains.ai
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: account.jetbrains.com
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: elevenlabs.io
     answer: 45.155.204.190
@@ -241,7 +244,7 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: api.squareup.com
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: api-global.squareup.com
     answer: 45.155.204.190
@@ -277,7 +280,7 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: www2.deepl.com
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: login-wall.deepl.com
     answer: 45.155.204.190
@@ -310,7 +313,7 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: ott.deepl.com
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: api-free.deepl.com
     answer: 45.155.204.190
@@ -319,7 +322,7 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: clearance.deepl.com
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: errortracking.deepl.com
     answer: 45.155.204.190
@@ -331,13 +334,13 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: checkout.www.deepl.com
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: gtm.deepl.com
     answer: 45.155.204.190
     enabled: true
   - domain: voice-proxy.www.deepl.com
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: deezer.com
     answer: 45.155.204.190
@@ -412,7 +415,7 @@ filtering:
     answer: 62.133.62.97
     enabled: true
   - domain: claude.ai
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: console.anthropic.com
     answer: 45.155.204.190
@@ -421,7 +424,7 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: platform.claude.com
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: a.claude.ai
     answer: 45.155.204.190
@@ -439,7 +442,7 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: linear.app
-    answer: 45.155.204.190
+    answer: 185.246.223.127
     enabled: true
   - domain: client-api.linear.app
     answer: 45.155.204.190
@@ -460,10 +463,10 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: windsurf.com
-    answer: 45.155.204.190
+    answer: 185.246.223.127
     enabled: true
   - domain: codeium.com
-    answer: 45.155.204.190
+    answer: 185.246.223.127
     enabled: true
   - domain: server.codeium.com
     answer: 45.155.204.190
@@ -493,7 +496,7 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: manus.im
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: api.manus.im
     answer: 45.155.204.190
@@ -508,7 +511,7 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: www.canva.com
-    answer: 45.155.204.190
+    answer: 103.27.157.38
     enabled: true
   - domain: content-management-files.canva.com
     answer: 45.155.204.190
@@ -526,7 +529,7 @@ filtering:
     answer: 103.27.157.38
     enabled: true
   - domain: web.archive.org
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: developer.nvidia.com
     answer: 45.155.204.190
@@ -535,10 +538,10 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: tria.ge
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: www.qwant.com
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: guidedhacking.com
     answer: 45.155.204.190
@@ -547,13 +550,13 @@ filtering:
     answer: 45.155.204.190
     enabled: true
   - domain: accounts.autodesk.com
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: www.autodesk.com
     answer: 45.155.204.190
     enabled: true
   - domain: pump.fun
-    answer: 45.155.204.190
+    answer: 37.230.192.51
     enabled: true
   - domain: frontend-api-v3.pump.fun
     answer: 45.155.204.190
