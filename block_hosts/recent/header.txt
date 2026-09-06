@@ -3,7 +3,7 @@
 ! Description: Custom blocklist for ads and trackers
 ! Version: 1.0.0
 ! Homepage: https://github.com/l1ratch
-! Last modified: 2026-08-30T08:39:09.000Z
+! Last modified: 2026-09-06T07:24:03.000Z
 !
 ! Compiled by @adguard/hostlist-compiler v1.0.35
 !
